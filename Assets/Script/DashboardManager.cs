@@ -14,9 +14,13 @@ public class DashboardManager : MonoBehaviour
     void Start()
     {
           MQTT_Manager.OnMessage+=ChangeState;    
-  
+          MQTT_Manager.OnState+=MelfaState;    
        
         
+    }
+    public void MelfaState(string msg)
+    {
+    
     }
         void OnEnable()
     {

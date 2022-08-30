@@ -8,6 +8,8 @@ public class MQTT_Manager : M2MqttUnityClient
 {
 public delegate void CallbackDelegate(string msg);
  public static event CallbackDelegate OnMessage;
+ public static event CallbackDelegate OnState;
+
      [Header("MQTT Connection")]
         // public string brokerAddress_M="";
         // public string brokerPort_M="";
@@ -98,18 +100,30 @@ public delegate void CallbackDelegate(string msg);
             Debug.Log(topic+"   : "+msg);
             if(topic.Contains(topic_message))
             {
+            
                 try{
                     OnMessage(msg);
                 }
                 catch{
 
                 }
+                
             }
             if(topic.Contains(topic_control)){
 
             }
             if(topic.Contains(topic_monitor))
             {
+                    if(topic.Contains("message"))
+                 {
+                 try{
+                    OnState(msg);
+                }
+                catch{
+
+                }
+                 }
+                //  else if()
 
             }
             // // StoreMessage(msg);
