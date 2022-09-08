@@ -9,7 +9,7 @@ public class MQTT_Manager : M2MqttUnityClient
 public delegate void CallbackDelegate(string msg);
  public static event CallbackDelegate OnMessage;
  public static event CallbackDelegate OnState;
-
+public static event CallbackDelegate OnMonitorMessage;
      [Header("MQTT Connection")]
         // public string brokerAddress_M="";
         // public string brokerPort_M="";
@@ -68,12 +68,12 @@ public delegate void CallbackDelegate(string msg);
 
         protected override void SubscribeTopics()
         {
-            client.Subscribe(new string[] { topic_message,topic_control,topic_monitor }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            client.Subscribe(new string[] { topic_message+"/#",topic_control+"/#",topic_monitor+"/#" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
 
         protected override void UnsubscribeTopics()
         {
-            client.Unsubscribe(new string[] {  topic_message,topic_control,topic_monitor});
+            client.Unsubscribe(new string[] {  topic_message+"/#",topic_control+"/#",topic_monitor+"/#"});
         }
 
         protected override void OnConnectionFailed(string errorMessage)
@@ -114,14 +114,25 @@ public delegate void CallbackDelegate(string msg);
             }
             if(topic.Contains(topic_monitor))
             {
-                    if(topic.Contains("message"))
+                    if(topic.Contains("message/state"))
                  {
                  try{
                     OnState(msg);
+                   
                 }
                 catch{
 
                 }
+                 }
+                 else{
+                             try{
+                    OnMonitorMessage(msg);
+                   
+                }
+                catch{
+
+                }
+                
                  }
                 //  else if()
 
