@@ -7,6 +7,7 @@ public class ControllerUIManager : MonoBehaviour
 {    public Dropdown myDropdown;
 public GameObject jointP;
 public GameObject XYZP;
+public GameObject JointSliderPanel;
     int n;
    public Text percentage;
    public Slider OVRDSlider;
@@ -47,17 +48,25 @@ public GameObject XYZP;
  
  private void myDropdownValueChangedHandler(Dropdown target) {
    
-    if(target.value==0)
-    {
-        
-jointP.SetActive(true);
-XYZP.SetActive(false);
+   switch(target.value)
+   {
+    case 0:
+    jointP.SetActive(true);
+    XYZP.SetActive(false);
+    JointSliderPanel.SetActive(false);
+        break;
+            case 1:
+    jointP.SetActive(false);
+    XYZP.SetActive(true);
+    JointSliderPanel.SetActive(false);
+        break;
+            case 2:
+    jointP.SetActive(false);
+    XYZP.SetActive(false);
+    JointSliderPanel.SetActive(true);
+        break;
     }
-    else{
-        
-jointP.SetActive(false);
-XYZP.SetActive(true);
-    }
+
  }
  
  public void SetDropdownIndex(int index) {

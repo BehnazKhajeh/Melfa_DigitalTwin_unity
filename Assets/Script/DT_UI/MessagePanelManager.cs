@@ -29,6 +29,15 @@ public class MessagePanelManager : MonoBehaviour
         messageText.text=message;
         StartCoroutine(FadedBox(duration));
     }
+        public void ShowMessage(string message)
+    { 
+        img.color=new Color(0.5f,1,1,0.6f);
+        messageText.text="";
+        messageText.color=Color.red;
+        messageText.fontSize=9;
+        messageText.text=message;
+        StartCoroutine(FadedBox(2f));
+    }
     IEnumerator FadedBox(float Time)
     {
 

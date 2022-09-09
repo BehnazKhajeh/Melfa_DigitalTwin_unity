@@ -19,6 +19,7 @@ public class JointMovment : MonoBehaviour
             Debug.LogError("Joints number and Angles must be same!");
         }
     }
+   
     void Apply()
     {
         if(update_angle)
