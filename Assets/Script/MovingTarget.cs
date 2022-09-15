@@ -28,6 +28,7 @@ public class MovingTarget : MonoBehaviour
         speed=s;
         isMoving=true;
     }
+
     // Update is called once per frame
     void Update()
     {   if(isMoving)

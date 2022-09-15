@@ -8,7 +8,7 @@ public class PointListContainerManager : MonoBehaviour
      public List<Text> xyzs=new List<Text>();
      public Text Jname;
      List<float> joint_Angle=new List<float>();
-      List<float> XYZ_Angle=new List<float>();
+     List<float> XYZ_Angle=new List<float>();
     // Start is called before the first frame update
     public void initiat_container(List<float> joints_,List<float> xyz_,string name_)
     {
@@ -33,6 +33,6 @@ public class PointListContainerManager : MonoBehaviour
         FindObjectOfType<JointMovment>().MoveJointsTogether(joint_Angle,FindObjectOfType<ControllerUIManager>().GetOvrd());
     }
     public void MoveXYZ(){
-        FindObjectOfType<MovingTarget>().SetToGO(new Vector3(XYZ_Angle[0],XYZ_Angle[1],XYZ_Angle[2]),FindObjectOfType<ControllerUIManager>().GetOvrd());
+        FindObjectOfType<MovingTarget>().SetToGO(new Vector3(XYZ_Angle[0],XYZ_Angle[1],XYZ_Angle[2]),FindObjectOfType<ControllerUIManager>().GetOvrd()/10);
     }
 }
