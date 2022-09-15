@@ -8,7 +8,7 @@ public class BTNGetTeachPoint : MonoBehaviour
     private List<float> p1;
     private List<float> p2;
     public float OVRD=50;
-    private Vector3 pT1;
+    List<float>   pT1;
     void Start()
     {
         
@@ -20,7 +20,8 @@ public class BTNGetTeachPoint : MonoBehaviour
         
     }
     public void GetP1()
-    {   pT1=FindObjectOfType<GetTeachPoint>().GetPoint();
+    { 
+         pT1=FindObjectOfType<GetTeachPoint>().GetPoint();
             p1=FindObjectOfType<JointMovment>().Get_All_Joint_Angles();
                     for (int i=0 ; i<p1.Count;i++)
         {
@@ -37,7 +38,8 @@ public class BTNGetTeachPoint : MonoBehaviour
     }
     public void Go_P1_XYZ()
     {
-FindObjectOfType<MovingTarget>().SetToGO(pT1,OVRD/50);
+
+FindObjectOfType<MovingTarget>().SetToGO(new Vector3(pT1[0],pT1[1],pT1[2]),OVRD/50);
     }
     public void Go_P1()
     {

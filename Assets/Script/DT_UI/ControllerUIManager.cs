@@ -8,12 +8,14 @@ public class ControllerUIManager : MonoBehaviour
 public GameObject jointP;
 public GameObject XYZP;
 public GameObject JointSliderPanel;
+public Toggle toggle;
     int n;
    public Text percentage;
    public Slider OVRDSlider;
    public float slider_Cooldown=0.5f;
    bool isSliderChange=false;
    float prevSlider=-1;
+   bool simu_toggle=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +70,21 @@ public GameObject JointSliderPanel;
     }
 
  }
- 
+ public float GetOvrd()
+ {
+    return OVRDSlider.value;
+ }
+
+ public void Simu_Toggle()
+ {
+    simu_toggle=toggle.isOn;
+    FindObjectOfType<IKExample>().SetIKActivity(simu_toggle);
+    
+ }
+ public bool Get_Simu_State()
+ {
+    return simu_toggle;
+ }
  public void SetDropdownIndex(int index) {
      myDropdown.value = index;
  }

@@ -19,10 +19,11 @@ public class ListPanelUI_Manager : MonoBehaviour
      GameObject.Destroy(PointContainer.gameObject);
  }
     }
-    public void Listing(Points_joint p){
+    public void Listing(Points_joint p,Points_XYZ xyz){
  
         GameObject Lnew = Instantiate<GameObject>(pointListPanel, transform);
-        Lnew.GetComponent<PointListContainerManager>().initiat_container(p.joints.joint,p.joints.joint ,p.name);
+      // Debug.Log(xyz.point.point);
+        Lnew.GetComponent<PointListContainerManager>().initiat_container(p.joints.joint,xyz.point.point ,p.name);
         sc.verticalScrollbar.value=1;
     }
     // Update is called once per frame

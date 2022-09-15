@@ -48,9 +48,11 @@ public class JointMovment : MonoBehaviour
     }
     public void MoveJointsTogether(List<float> angles,float ovrd)
     {
-        
+        if(!simu_state)
+        {
         simu_state=true;
            StartCoroutine(Moving(angles,ovrd));
+        }
     }
     public float NormalizedToNegativDegree(float angle)
     {
@@ -74,19 +76,24 @@ public class JointMovment : MonoBehaviour
                     {
                             //Moving
                             SetJointAngle(i,tmpAngle-JOG_VAL);
+                          
                     }
                     else if (tmpAngle<tmpToAngle)
                     {
                              //Moving
                                SetJointAngle(i,tmpAngle+JOG_VAL);
+                              
                     }
                     else {
                             JointFlag[i]=true;
                             //   Debug.Log("FINISH Joint:"+(i+1));
                     }
-
+                          
+                        
+                    
                 }
                     yield return new  WaitForSeconds(1/ovrd);
+                    
                     int c=0;
                  for (int i=0; i<JointFlag.Count;i++)
                  {  
@@ -117,6 +124,10 @@ public class JointMovment : MonoBehaviour
             }
         
     }
+    public void MoveJointInStep()
+    {
+
+    }
     public List<float> Get_All_Joint_Angles()
     {
         List<float> angles=new List<float>();
@@ -124,6 +135,16 @@ public class JointMovment : MonoBehaviour
             {
                    angles.Add( get_joint_angles(i));
             }
+            return angles;
+    }
+        public List<float> Get_All_Joint_Angles_normalized()
+    {
+        List<float> angles=new List<float>();
+            for(int i=0 ; i< Joints.Count;i++)
+            {
+                   angles.Add(NormalizedToNegativDegree(get_joint_angles(i)));
+            }
+   
             return angles;
     }
     

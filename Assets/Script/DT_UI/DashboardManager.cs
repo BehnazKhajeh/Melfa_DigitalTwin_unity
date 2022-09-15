@@ -34,9 +34,9 @@ public class DashboardManager : MonoBehaviour
          State1.color=Color.green;
       }
       State1.text= myObject.state;
-    //   State myObject1 = JsonUtility.FromJson<State>(myObject.data);
-    //  Data dataObj=JsonUtility.FromJson<Data>(myObject.data.data);
-    Data dataObj=myObject.data;
+    //State myObject1 = JsonUtility.FromJson<State>(myObject.data);
+    //Data dataObj=JsonUtility.FromJson<Data>(myObject.data.data);
+      Data dataObj=myObject.data;
       command_Text.text=dataObj.data;
       
     }

@@ -15,8 +15,12 @@ public class GetTeachPoint : MonoBehaviour
     {
         
     }
-    public Vector3 GetPoint()
+    public List<float> GetPoint()
     {
-        return transform.position;
+        List<float> point=new List<float>();
+        point.Add(transform.position.x);
+        point.Add(transform.position.y);
+        point.Add(transform.position.z);
+        return point;
     }
 }

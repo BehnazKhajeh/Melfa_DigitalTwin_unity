@@ -12,6 +12,7 @@ public class JointSimuContoller : MonoBehaviour
     private Vector2 Anglelimit;
      int num;
      float AngleValue;
+     bool Moviiing=false;
     // Start is called before the first frame update
   void Start()
     {   
@@ -20,7 +21,13 @@ public class JointSimuContoller : MonoBehaviour
               Anglelimit=FindObjectOfType<JointMovment>().GetAngleLimit(num-1);
               jointSlider.minValue=Anglelimit.x;
                jointSlider.maxValue=Anglelimit.y;
+                Moving_State();
               
+    }
+    public void Moving_State()
+
+    {
+         jointSlider.value=FindObjectOfType<JointMovment>().Get_All_Joint_Angles_normalized()[num-1];
     }
 public void OnSliderChange()
 {
@@ -45,6 +52,9 @@ public void OnInputfeildChange()
    void Update() {
       if(!FindObjectOfType<JointMovment>().Get_Simu_State())
       {FindObjectOfType<JointMovment>().SetJointAngle(num-1,AngleValue);}
+      else{
+         Moving_State();
+      }
     
    }
 }
