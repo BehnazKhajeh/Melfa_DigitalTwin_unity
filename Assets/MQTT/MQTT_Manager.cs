@@ -121,13 +121,12 @@ public static event CallbackDelegate OnMonitorMessage;
                    
                 }
                 catch{
-
+                    
                 }
                  }
                  else{
                              try{
                     OnMonitorMessage(msg);
-                   
                 }
                 catch{
 
@@ -135,7 +134,7 @@ public static event CallbackDelegate OnMonitorMessage;
                 
                  }
                 //  else if()
-
+        
             }
             // // StoreMessage(msg);
             // if (topic == topic2Sub)

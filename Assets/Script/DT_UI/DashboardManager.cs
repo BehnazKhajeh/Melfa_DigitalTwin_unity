@@ -19,8 +19,6 @@ public class DashboardManager : MonoBehaviour
           MQTT_Manager.OnMessage+=ChangeState;    
           MQTT_Manager.OnState+=MelfaState;    
           MQTT_Manager.OnMonitorMessage+=MonitorMessage;    
-       
-        
     }
     public void MonitorMessage(string msg){
       State myObject = JsonUtility.FromJson<State>(msg);

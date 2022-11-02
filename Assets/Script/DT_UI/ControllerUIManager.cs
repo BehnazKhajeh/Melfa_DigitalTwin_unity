@@ -88,5 +88,9 @@ public Toggle toggle;
  public void SetDropdownIndex(int index) {
      myDropdown.value = index;
  }
-
+        void OnDisable()
+    {
+           PlayerPrefs.SetFloat( "OVRD_VAL",OVRDSlider.value);
+    }
 }
+

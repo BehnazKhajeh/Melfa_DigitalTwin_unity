@@ -18,13 +18,16 @@ public class TeachPointManager : MonoBehaviour
     public GameObject pointPanel;
     
     // Start is called before the first frame update
+
     void Start()
     {
-        //       data.savejson("JointPoint","");
-        // data.savejson("XYZPoint","");
+  
     }
     void WriteJointInText()
-    {   jointAngle=FindObjectOfType<JointMovment>().Get_All_Joint_Angles();
+    
+    {  
+        jointAngle=FindObjectOfType<JointMovment>().Get_All_Joint_Angles();
+        
         JointText.text=
         "J1="+ FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[0]* 100.0f)* 0.01f)+
         " J2="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[1]* 100.0f)* 0.01f)+
@@ -57,7 +60,7 @@ public class TeachPointManager : MonoBehaviour
          pxyz.point=new XYZ_();
          xyzz.points=new List<Points_XYZ>();
          ///
-              if(pointName.Equals(""))
+              if(pointName.Equals("")||pointName.Equals("ERROR"))
         {
             FindObjectOfType<MessagePanelManager>().ShowMessage(" Please enter point name");
         }
@@ -155,11 +158,18 @@ public class TeachPointManager : MonoBehaviour
          Points_joint pp=new Points_joint();
          pp.joints=new Joints_();
          joi.points=new List<Points_joint>();
-         
+         //XYZ
+        XYZ_ xyz=new XYZ_();
+         Points_XYZ pxyz=new Points_XYZ();
+         pxyz.point=new XYZ_();
+         xyzz.points=new List<Points_XYZ>();
+
         string tmpdata=data.loadjson("JointPoint");
+        string tmpdataXYZ=data.loadjson("XYZPoint");
+
         pointPanel.SetActive(true);
         joi=JsonConvert.DeserializeObject<PointByJoint>(tmpdata);
-        FindObjectOfType<ListPanelUI_Manager>().refresh_Panel();
+    
         for (int i=0 ;i<joi.points.Count;i++)
         {
             //   Debug.Log( joi.points[i].name);
@@ -170,7 +180,28 @@ public class TeachPointManager : MonoBehaviour
 
         }
           data.savejson("JointPoint", JsonConvert.SerializeObject(joi));
+
+          ///XYZ 
+        xyzz=JsonConvert.DeserializeObject<PointByXYZ>(tmpdataXYZ);
+       
+        for (int i=0 ;i<xyzz.points.Count;i++)
+        {
+            //   Debug.Log( joi.points[i].name);
+            if(xyzz.points[i].name.Equals(pname))
+            {
+                xyzz.points.RemoveAt(i);
+            }
+
+        }
+         FindObjectOfType<ListPanelUI_Manager>().refresh_Panel();
+         data.savejson("XYZPoint", JsonConvert.SerializeObject(xyzz));
          GetPointList();
+         
+    }
+        public void DeletAllPointList()
+    {
+        data.savejson("JointPoint","");
+        data.savejson("XYZPoint","");
     }
     void Update()
     {

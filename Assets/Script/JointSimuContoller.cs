@@ -21,6 +21,7 @@ public class JointSimuContoller : MonoBehaviour
               Anglelimit=FindObjectOfType<JointMovment>().GetAngleLimit(num-1);
               jointSlider.minValue=Anglelimit.x;
                jointSlider.maxValue=Anglelimit.y;
+               
                 Moving_State();
               
     }
@@ -28,11 +29,13 @@ public class JointSimuContoller : MonoBehaviour
 
     {
          jointSlider.value=FindObjectOfType<JointMovment>().Get_All_Joint_Angles_normalized()[num-1];
+  
     }
 public void OnSliderChange()
 {
     AngleValue=jointSlider.value;
     jointAngle.text=jointSlider.value.ToString();
+    
 }
 public void OnInputfeildChange()
 {    
@@ -45,13 +48,17 @@ public void OnInputfeildChange()
      }else{
           jointAngle.textComponent.color=Color.black;
         AngleValue=jointAngleVal;
-        jointSlider.value=AngleValue;}
-      
+        jointSlider.value=AngleValue;
+         }
+       
     
 }
    void Update() {
+      
       if(!FindObjectOfType<JointMovment>().Get_Simu_State())
-      {FindObjectOfType<JointMovment>().SetJointAngle(num-1,AngleValue);}
+      {FindObjectOfType<JointMovment>().SetJointAngle(num-1,AngleValue);
+   // Debug.Log(AngleValue);
+     }
       else{
          Moving_State();
       }

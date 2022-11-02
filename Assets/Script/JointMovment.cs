@@ -9,11 +9,14 @@ public class JointMovment : MonoBehaviour
     public List<float> JointsAngles=new List<float>();
     public List<Vector2> AngleLimit;
     public bool update_angle=false;
+    public bool is_Sync_with_Melfa=false;
     public float JOG_VAL=1f;
     bool simu_state=false;
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        MQTT_Manager.OnMonitorMessage+=SyncJoint;  
+        
         if( Joints.Count != JointsAngles.Count && AngleLimit.Count !=Joints.Count)
         {
             Debug.LogError("Joints number and Angles must be same!");
@@ -26,6 +29,26 @@ public class JointMovment : MonoBehaviour
         {   
                 SetJointsAngles();
         }
+        if(is_Sync_with_Melfa)
+        {
+
+        }
+    }
+    public void SyncJoint(string msg)
+    {
+            //Convert it to json 
+            if(msg.Contains("JPOSF"))
+            {
+                JPOSF myPos=JsonUtility.FromJson<JPOSF>(msg);
+         
+                    SetJointAngle(0,myPos.j1);
+                     SetJointAngle(1,myPos.j2);
+                      SetJointAngle(2,myPos.j3);
+                       SetJointAngle(3,myPos.j4);
+                        SetJointAngle(4,myPos.j5);
+                         SetJointAngle(5,myPos.j6);
+                
+            }
     }
     public bool Get_Simu_State()
     {
@@ -69,7 +92,8 @@ public class JointMovment : MonoBehaviour
          while (DoWhileFlag)
             {
                 for (int i=0 ; i<angles.Count;i++)
-                {   float tmpAngle=NormalizedToNegativDegree( Mathf.RoundToInt(get_joint_angles(i)));
+                {  
+                    float tmpAngle=NormalizedToNegativDegree( Mathf.RoundToInt(get_joint_angles(i)));
                     float tmpToAngle=NormalizedToNegativDegree( Mathf.RoundToInt(angles[i]));
                 
                     if(tmpAngle>tmpToAngle)
@@ -109,7 +133,7 @@ public class JointMovment : MonoBehaviour
                       }
                     
             }
-            // Debug.Log("FINISH WHILE");
+            
             simu_state=false;
        
     }
@@ -118,9 +142,10 @@ public class JointMovment : MonoBehaviour
             
             for(int i=0; i < JointsAngles.Count;i++)
             {
-
+           
                  Joints[i].localRotation= Quaternion.Euler(set_joint_angles(i,JointsAngles[i]));
-               
+                 
+          
             }
         
     }
@@ -132,19 +157,20 @@ public class JointMovment : MonoBehaviour
     {
         List<float> angles=new List<float>();
             for(int i=0 ; i< Joints.Count;i++)
-            {
+            { 
                    angles.Add( get_joint_angles(i));
             }
+
             return angles;
     }
         public List<float> Get_All_Joint_Angles_normalized()
     {
         List<float> angles=new List<float>();
             for(int i=0 ; i< Joints.Count;i++)
-            {
+            { 
                    angles.Add(NormalizedToNegativDegree(get_joint_angles(i)));
             }
-   
+ 
             return angles;
     }
     
@@ -155,18 +181,19 @@ public class JointMovment : MonoBehaviour
         switch (i)
         {
             case 0:
-                    eularJointAngle =new Vector3(Joints[i].localEulerAngles.x,Angle,Joints[i].localEulerAngles.z);
+                    eularJointAngle =new Vector3(Joints[i].localEulerAngles.x,-Angle,Joints[i].localEulerAngles.z);
                   
             break;
                   case 1:
-                         eularJointAngle =new Vector3(Angle,Joints[i].localEulerAngles.y,Joints[i].localEulerAngles.z);
+                         eularJointAngle =new Vector3(Angle,0,0);
                              
             break;
                   case 2:
-                             eularJointAngle =new Vector3(Angle,Joints[i].localEulerAngles.y,Joints[i].localEulerAngles.z);
+                          eularJointAngle =new Vector3(Angle,0,0);
+                        // Debug.Log(eularJointAngle);
             break;
                   case 3:
-                         eularJointAngle =new Vector3(Joints[i].localEulerAngles.x,Joints[i].localEulerAngles.y,Angle);
+                         eularJointAngle =new Vector3(-100,0,-Angle);
             break;
                   case 4:
                                  eularJointAngle =new Vector3(Angle,Joints[i].localEulerAngles.y,Joints[i].localEulerAngles.z);
@@ -199,6 +226,7 @@ public class JointMovment : MonoBehaviour
                   case 2:
                            
                              angle=Joints[i].localEulerAngles.x;
+                           
             break;
                   case 3:
                         

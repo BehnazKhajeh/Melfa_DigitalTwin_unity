@@ -28,7 +28,14 @@ public class MovingTarget : MonoBehaviour
         speed=s;
         isMoving=true;
     }
-
+    public bool IsMoving()
+    {
+        return isMoving;
+    }
+    // public IEnumerator P_MOV(Vector3 p,float s)
+    // {
+            
+    // }
     // Update is called once per frame
     void Update()
     {   if(isMoving)
@@ -55,12 +62,12 @@ public class MovingTarget : MonoBehaviour
         {
         transform.position = dirTmp;
         }
-    //    Debug.Log(dir);
-        if(dir==p)
+
+        if(dirTmp==p)
         {
             isMoving=false;
             
-            cCDIK.enabled=simuToggle;
+            // cCDIK.enabled=simuToggle;
                
             
         }
