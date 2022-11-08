@@ -11,6 +11,7 @@ public class DashboardManager : MonoBehaviour
     public Text State2;
     public Text command_Text;
     bool rcvState=false;
+    
     bool sending=false;
     bool CR_running=false;
     // Start is called before the first frame update
@@ -43,6 +44,7 @@ public class DashboardManager : MonoBehaviour
      rcvState=false;
      sending=true;
                 FindObjectOfType<MQTT_Manager>().
+             
           Publishing("melfa/control/testsv");
         //   if(  !CR_running ){
         StartCoroutine(Timer());

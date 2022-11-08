@@ -193,7 +193,7 @@ public class JointMovment : MonoBehaviour
                         // Debug.Log(eularJointAngle);
             break;
                   case 3:
-                         eularJointAngle =new Vector3(-100,0,-Angle);
+                         eularJointAngle =new Vector3(-90,0,-Angle);
             break;
                   case 4:
                                  eularJointAngle =new Vector3(Angle,Joints[i].localEulerAngles.y,Joints[i].localEulerAngles.z);
