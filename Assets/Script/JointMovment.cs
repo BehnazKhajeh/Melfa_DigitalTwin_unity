@@ -12,11 +12,14 @@ public class JointMovment : MonoBehaviour
     public bool is_Sync_with_Melfa=false;
     public float JOG_VAL=1f;
     bool simu_state=false;
+   public bool isRs232=false;
     // Start is called before the first frame update
     void Start()
-    {   
+    {   if(!isRs232){
         MQTT_Manager.OnMonitorMessage+=SyncJoint;  
-        
+        }else{
+        PortConnection.OnMonitorMessage+=SyncJoint;
+        }
         if( Joints.Count != JointsAngles.Count && AngleLimit.Count !=Joints.Count)
         {
             Debug.LogError("Joints number and Angles must be same!");

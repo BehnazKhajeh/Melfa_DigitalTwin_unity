@@ -5,10 +5,13 @@ using UnityEngine;
 public class SyncWithMelfa : MonoBehaviour
 {
     public float timeloop;
+    public bool isSync=false;
     // Start is called before the first frame update
     void Start()
     {
+        if(isSync){
         StartCoroutine(Delay(timeloop*2));
+        }
     }
 
     IEnumerator Delay(float time)
