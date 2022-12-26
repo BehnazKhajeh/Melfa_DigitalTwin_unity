@@ -24,7 +24,7 @@ public static event CallbackDelegate OnMonitorMessage;
         {
             // SetUiMessage("Ready.");
             // updateUI = true;
-            Debug.Log("Start");
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+"Start");
             // SetupConnection();
             base.Start();
         }
@@ -37,27 +37,27 @@ public static event CallbackDelegate OnMonitorMessage;
         public void Publishing(string topic)
         {
             client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(""), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
-            Debug.Log(topic+":send");
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+":send");
             // AddUiMessage("Test message published.");
         }
                 public void Publishing_Payload(string topic,string payload)
         {
             client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
-            Debug.Log("Test message published");
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"Test message published");
             // AddUiMessage("Test message published.");
         }
 
            protected override void OnConnecting()
         {
             base.OnConnecting();
-             Debug.Log("Connecting to broker on " + brokerAddress + ":" + brokerPort.ToString() + "...\n");
+             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"Connecting to broker on " + brokerAddress + ":" + brokerPort.ToString() + "...\n");
             // SetUiMessage("Connecting to broker on " + brokerAddress + ":" + brokerPort.ToString() + "...\n");
         }
 
         protected override void OnConnected()
         {
             base.OnConnected();
-            Debug.Log("Connected to broker on " + brokerAddress + "\n");
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"Connected to broker on " + brokerAddress + "\n");
             // SetUiMessage("Connected to broker on " + brokerAddress + "\n");
 
             // if (autoTest)
@@ -97,7 +97,8 @@ public static event CallbackDelegate OnMonitorMessage;
         protected override void DecodeMessage(string topic, byte[] message)
         {
             string msg = System.Text.Encoding.UTF8.GetString(message);
-            Debug.Log(topic+"   : "+msg);
+           
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+"   : "+msg);
             if(topic.Contains(topic_message))
             {
             

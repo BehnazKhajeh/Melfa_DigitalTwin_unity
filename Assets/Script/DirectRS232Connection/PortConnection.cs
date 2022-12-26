@@ -14,14 +14,14 @@ public float timeout=0.01f;
 public  int ReadTimeout=500000;
 
     void Start () {
-       string[] ports = SerialPort.GetPortNames();
+    //    string[] ports = SerialPort.GetPortNames();
  
-        Debug.Log("The following serial ports were found:");
+        // Debug.Log("The following serial ports were found:");
  
-        foreach(string port in ports)
-        {
-            Debug.Log(port);
-        }
+        // foreach(string port in ports)
+        // {
+        //     Debug.Log(port);
+        // }
     stream = new SerialPort(the_com, 9600);
     stream.WriteTimeout = 300;
     stream.ReadTimeout = ReadTimeout;
@@ -59,23 +59,19 @@ public  int ReadTimeout=500000;
    }
    public void ReadingFromPort(){
     // byte[] b=(byte)255;
-    Debug.Log( "ReadingFromPort");
+    // Debug.Log( "ReadingFromPort");
     string line;
     while(true)
     {
         line=stream.ReadLine();
 //  char [] cArray= System.Text.Encoding.ASCII.GetString(line).ToCharArray();
    
-     Debug.Log( line); 
+     Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+line); 
      if(line.Contains("JPOSF"))
      {
         OnMonitorMessage(line);
      }
-    // if( line=="")
-    // {
-    //     stream.WriteLine("EMPTY");
-    //     Debug.Log( "Empty"); 
-    // }
+
       if(isExit)
       {
         stream.Close();
