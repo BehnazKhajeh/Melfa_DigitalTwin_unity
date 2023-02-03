@@ -34,13 +34,20 @@ public class ProgrammingManager : MonoBehaviour
         string tmpname=nameBox.text;
         if (!tmpcode.Equals("")&&!tmpname.Equals(""))
         {
-            FindObjectOfType<MQTT_Manager>().Publishing_Payload("melfa/control/prgrm/"+tmpname.ToUpper(),tmpcode.ToUpper());
+
+          StartCoroutine(Send2Menfa_DelayWithDelete(0.5f,tmpname,tmpcode));
         }
         else{
             FindObjectOfType<MessagePanelManager>().ShowMessage("Fill Code and Name Box",Color.red,3f,14);
         }
         
         
+    }
+          IEnumerator Send2Menfa_DelayWithDelete(float time,string tmpname,string tmpcode)
+    {   
+        FindObjectOfType<MQTT_Manager>().Publishing("melfa/control/Run");
+        yield return new WaitForSeconds(time);
+        // FindObjectOfType<MQTT_Manager>().Publishing_Payload("melfa/control/prgrm/"+tmpname.ToUpper(),tmpcode.ToUpper());
     }
       /// <summary>
     /// Handle IK

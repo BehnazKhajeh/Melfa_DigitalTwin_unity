@@ -6,6 +6,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 public class MQTT_Manager : M2MqttUnityClient
 {
+    public bool WebglMode=false;
 public delegate void CallbackDelegate(string msg);
  public static event CallbackDelegate OnMessage;
  public static event CallbackDelegate OnState;
@@ -19,14 +20,16 @@ public static event CallbackDelegate OnMonitorMessage;
         public string topic_monitor="";
         // public string topic2pub="";
 
-
+           public string topic_service="";
       protected override void Start()
         {
             // SetUiMessage("Ready.");
             // updateUI = true;
             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+"Start");
             // SetupConnection();
+            if(!WebglMode){
             base.Start();
+            }
         }
         // public  void SetupConnection()
         // {
@@ -36,15 +39,25 @@ public static event CallbackDelegate OnMonitorMessage;
         // }
         public void Publishing(string topic)
         {
-            client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(""), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
+               if(!WebglMode){
+            client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(""), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+":send");
             // AddUiMessage("Test message published.");
+               }
+               else{
+ FindObjectOfType<MessagePanelManager>().ShowMessage("You Havent Access",Color.red,3f,14);
+               }
         }
                 public void Publishing_Payload(string topic,string payload)
         {
-            client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
+               if(!WebglMode){
+            client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"Test message published");
             // AddUiMessage("Test message published.");
+               }
+                else{
+               FindObjectOfType<MessagePanelManager>().ShowMessage("You Havent Access",Color.red,3f,14);
+               }
         }
 
            protected override void OnConnecting()
@@ -98,7 +111,7 @@ public static event CallbackDelegate OnMonitorMessage;
         {
             string msg = System.Text.Encoding.UTF8.GetString(message);
            
-            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+"   : "+msg);
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+"|"+msg);
             if(topic.Contains(topic_message))
             {
             
@@ -169,7 +182,64 @@ public static event CallbackDelegate OnMonitorMessage;
             //     UpdateUI();
             // }
         }
+  public void SubBridger(string packet)
+        {
+            // Packet Devide to Topic | Payload
+            string[] message=packet.Split('|');
+            string topic=message[0];
+            string msg=message[1];
+            Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+topic+"|"+msg);
+            if(topic.Contains(topic_message))
+            {
+            
+                try{
+                    OnMessage(msg);
+                }
+                catch{
 
+                }
+                
+            }
+            if(topic.Contains(topic_control)){
+
+            }
+            if(topic.Contains(topic_monitor))
+            {
+                    if(topic.Contains("message/state"))
+                 {
+                 try{
+                    OnState(msg);
+                   
+                }
+                catch{
+                    
+                }
+                 }
+                 else{
+                             try{
+                    OnMonitorMessage(msg);
+                }
+                catch{
+
+                }
+                
+                 }
+                //  else if()
+        
+            }
+            // // StoreMessage(msg);
+            // if (topic == topic2Sub)
+            // {
+            //     Debug.Log(topic+" 1: " + msg);
+            // }
+            // else if (topic==topic2Sub1)
+            // {
+            //        Debug.Log(topic2Sub1+" 2 :" + msg);
+            // }
+            // else{
+            //      Debug.Log(topic+ msg);
+            // }
+        }
 
 
         public void SetBrokerAddress(string brokerAddress)

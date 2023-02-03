@@ -2374,6 +2374,10 @@ PrefabInstance:
       value: Melfa_RV1a (Working Test for real) (MQTT) (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2404831914354852605, guid: 7bcf18a0e22727e44a0b8912f88333bd, type: 3}
+      propertyPath: isRs232
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404831914354852605, guid: 7bcf18a0e22727e44a0b8912f88333bd, type: 3}
       propertyPath: JointsAngles.Array.data[2]
       value: 90
       objectReference: {fileID: 0}
@@ -3429,7 +3433,7 @@ MonoBehaviour:
   ZoomOffset: {x: 5, y: 25}
   zoomspeed: 5
   rotatespeed: 10
-  targetobject: {fileID: 0}
+  targetobject: {fileID: 669447252}
 --- !u!1 &994769920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4699,7 +4703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1431130683
 Transform:
   m_ObjectHideFlags: 0
@@ -6066,7 +6070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1883836642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6079,7 +6083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3f911da8426444394feecba178a135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  the_com: COM2
+  the_com: COM3
   timeout: 0.01
   ReadTimeout: 500000
 --- !u!4 &1883836643
@@ -6518,7 +6522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2007074978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6543,6 +6547,7 @@ MonoBehaviour:
   topic_message: melfa/message
   topic_control: melfa/control
   topic_monitor: melfa/monitor
+  topic_service: 
 --- !u!4 &2007074979
 Transform:
   m_ObjectHideFlags: 0

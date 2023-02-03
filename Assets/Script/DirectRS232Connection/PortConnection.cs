@@ -66,7 +66,7 @@ public  int ReadTimeout=500000;
         line=stream.ReadLine();
 //  char [] cArray= System.Text.Encoding.ASCII.GetString(line).ToCharArray();
    
-     Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+line); 
+     Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+" : "+line); 
      if(line.Contains("JPOSF"))
      {
         OnMonitorMessage(line);
