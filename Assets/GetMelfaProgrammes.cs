@@ -40,6 +40,7 @@ public class GetMelfaProgrammes : MonoBehaviour
     }
     public void CloseProgramePanel()
     {
+        LoadingPanel.SetActive(false);
         ProgrammePanel.SetActive(false);
         ProgrammeInputField.SetActive(true);
     }
@@ -67,19 +68,25 @@ public class GetMelfaProgrammes : MonoBehaviour
          FindObjectOfType<MQTT_Manager>().Publishing("melfa/control/prnum");
          ProgrammeInputField.SetActive(false);
          LoadingPanel.SetActive(true);
+       
          StartCoroutine(WaitUntilNumRecive());
     }
     IEnumerator  TimeOut_Delay(bool isNUM)
     {
-               yield return new WaitForSeconds(TimeOutTimer);
+
+            
+              
                if(isNUM){
+                  yield return new WaitForSeconds(TimeOutTimer);
                         if(!num_recive)
                         {
+                             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"in3");
                               FindObjectOfType<MessagePanelManager>().ShowMessage("Time Out..Retry",Color.red,3,12);
                             OpenProgrammePanel();
                         }
                }
                else{
+                   yield return new WaitForSeconds(TimeOutTimer*5);
                           if(!name_recive)
                         {
                              
@@ -89,7 +96,10 @@ public class GetMelfaProgrammes : MonoBehaviour
               
     }
      IEnumerator WaitUntilNumRecive()
-    {   StartCoroutine(TimeOut_Delay(true));
+     
+    {       
+
+           StartCoroutine(TimeOut_Delay(true));
          yield return new WaitUntil(()=>num_recive);
          LoadingPanel.SetActive(false);
          ProgrammePanel.SetActive(true);

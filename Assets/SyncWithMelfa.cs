@@ -10,10 +10,14 @@ public class SyncWithMelfa : MonoBehaviour
     void Start()
     {
         if(isSync){
-        StartCoroutine(Delay(timeloop*2));
+        StartCoroutine(f_Delay(5));
         }
     }
-
+    IEnumerator f_Delay(float time)
+{
+    yield return new  WaitForSeconds(time);
+        StartCoroutine(Delay(timeloop*2));
+}
     IEnumerator Delay(float time)
 {
     yield return new  WaitForSeconds(time);

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HumanCollide : MonoBehaviour
 {
-        public Material MaterialRef;
+    public float lifeTime=20f;
+    public Material MaterialRef;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +20,10 @@ public class HumanCollide : MonoBehaviour
         Debug.Log("COLLLIDE HUMANNN");
         }
     }
-    // Update is called once per frame
-    void Update()
+    IEnumerator life()
     {
-        
+       yield return new WaitForSeconds(lifeTime);
+       Destroy(this.gameObject);
+    
     }
 }

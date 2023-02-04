@@ -31,6 +31,12 @@ public static event CallbackDelegate OnMonitorMessage;
             base.Start();
             }
         }
+        //        public void _StartingMqtt()
+        // {
+        //   if(!WebglMode){
+        //     base.Start();
+        //     }
+        // }
         // public  void SetupConnection()
         // {
         //     this.brokerAddress = brokerAddress_M;
@@ -72,7 +78,7 @@ public static event CallbackDelegate OnMonitorMessage;
             base.OnConnected();
             Debug.Log(System. DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")+"Connected to broker on " + brokerAddress + "\n");
             // SetUiMessage("Connected to broker on " + brokerAddress + "\n");
-
+     FindObjectOfType<MessagePanelManager>().ShowMessage("connect to "+brokerAddress+":"+brokerPort.ToString(),Color.green,6,14);
             // if (autoTest)
             // {
             //     TestPublish();

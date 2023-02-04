@@ -22,6 +22,20 @@ public  int ReadTimeout=500000;
         // {
         //     Debug.Log(port);
         // }
+   
+        // Thread _thread = new Thread(ReadingFromPort);
+        // _thread.Start();
+        StartCoroutine(Timer_Connection(2));
+        StartCoroutine(Timer(3));
+
+    }
+    // Update is called once per frame
+ private void OnApplicationQuit() {
+    isExit=true;
+}
+    IEnumerator Timer_Connection(float time)
+   {
+        yield return new WaitForSeconds(time);
     stream = new SerialPort(the_com, 9600);
     stream.WriteTimeout = 300;
     stream.ReadTimeout = ReadTimeout;
@@ -30,23 +44,21 @@ public  int ReadTimeout=500000;
     stream.ReadBufferSize=2;
     stream.DtrEnable = true;
     stream.RtsEnable = true;
-    stream.Open();
+    try{
+ stream.Open();
+    }catch{
+           FindObjectOfType<MessagePanelManager>().ShowMessage("The port "+the_com+" does not exis",Color.red,6,14);
+    }
+   
 
              if (!stream.IsOpen)
             {
                 stream.Open();
                 print("opened stream");
             }
-            
-        // Thread _thread = new Thread(ReadingFromPort);
-        // _thread.Start();
-        StartCoroutine(Timer(3));
+         
+   }
 
-    }
-    // Update is called once per frame
- private void OnApplicationQuit() {
-    isExit=true;
-}
     IEnumerator Timer(float time)
    {
 

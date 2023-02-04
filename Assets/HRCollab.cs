@@ -32,9 +32,9 @@ public class HRCollab : MonoBehaviour
      GameObject obj=Instantiate(Sphere,this.gameObject.transform.position,this.gameObject.transform.rotation,null);
     // obj.transform.parent = null;
     //  Debug.Log("STAART22");
-   StartCoroutine(Instantiation_OF_Sphere(delayOfInit));
+   
   }
-      
+    StartCoroutine(Instantiation_OF_Sphere(delayOfInit));
    }
    public void setRecHR(bool f)
    {
@@ -44,6 +44,9 @@ public class HRCollab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.P)){
+            // setRecHR(!isRecordingHR);
+            isRecordingHR=!isRecordingHR;
+        }
     }
 }

@@ -92,7 +92,10 @@ namespace M2MqttUnity
                 StartCoroutine(DoConnect());
             }
         }
-
+        public void StartingMqtt()
+        {
+            
+        }
         /// <summary>
         /// Disconnect from the broker, if connected.
         /// </summary>
@@ -321,6 +324,7 @@ namespace M2MqttUnity
             {
                 client = null;
                 Debug.LogErrorFormat("Failed to connect to {0}:{1}:\n{2}", brokerAddress, brokerPort, e.ToString());
+                 FindObjectOfType<MessagePanelManager>().ShowMessage("Failed connect to "+brokerAddress+":"+brokerPort.ToString(),Color.red,6,14);
                 OnConnectionFailed(e.Message);
                 yield break;
             }
