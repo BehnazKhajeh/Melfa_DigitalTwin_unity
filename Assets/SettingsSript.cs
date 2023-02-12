@@ -82,7 +82,9 @@ public class SettingsSript : MonoBehaviour
       PlayerPrefs.SetString("Json_Setting", json);
       Ui_Change();
       Make_change();
+      //  Retry();
     }
+
     public void Save()
     {
       bool ok=true;

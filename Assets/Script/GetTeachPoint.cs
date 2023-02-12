@@ -5,9 +5,12 @@ using UnityEngine;
 public class GetTeachPoint : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public GameObject RoboCenter;
+    public Transform ToolSCenter;
+    Vector3 CenterPos;
+        void Start()
     {
-        
+         CenterPos=RoboCenter.GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
@@ -17,10 +20,11 @@ public class GetTeachPoint : MonoBehaviour
     }
     public List<float> GetPoint()
     {
+        
         List<float> point=new List<float>();
-        point.Add(transform.position.x);
-        point.Add(transform.position.y);
-        point.Add(transform.position.z);
+        point.Add(transform.position.x-CenterPos.x);
+        point.Add(transform.position.z-CenterPos.z);
+        point.Add(transform.position.y-CenterPos.y);
         return point;
     }
 }

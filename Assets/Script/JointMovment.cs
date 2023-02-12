@@ -80,8 +80,15 @@ public class JointMovment : MonoBehaviour
            StartCoroutine(Moving(angles,ovrd));
         }
     }
-    public float NormalizedToNegativDegree(float angle)
+    public float NormalizedToNegativDegree(int i,float angle)
     {
+        if(i==2){
+            return 180-angle;
+        }
+        if(i==3)
+        {
+            return (angle > 180) ? 360 - angle: -angle;
+        }
         return (angle > 180) ? angle - 360 : angle;
     }
     IEnumerator Moving(List<float> angles,float ovrd)
@@ -96,8 +103,8 @@ public class JointMovment : MonoBehaviour
             {
                 for (int i=0 ; i<angles.Count;i++)
                 {  
-                    float tmpAngle=NormalizedToNegativDegree( Mathf.RoundToInt(get_joint_angles(i)));
-                    float tmpToAngle=NormalizedToNegativDegree( Mathf.RoundToInt(angles[i]));
+                    float tmpAngle=NormalizedToNegativDegree(i, Mathf.RoundToInt(get_joint_angles(i)));
+                    float tmpToAngle=NormalizedToNegativDegree(i, Mathf.RoundToInt(angles[i]));
                 
                     if(tmpAngle>tmpToAngle)
                     {
@@ -171,7 +178,7 @@ public class JointMovment : MonoBehaviour
         List<float> angles=new List<float>();
             for(int i=0 ; i< Joints.Count;i++)
             { 
-                   angles.Add(NormalizedToNegativDegree(get_joint_angles(i)));
+                   angles.Add(NormalizedToNegativDegree(i,get_joint_angles(i)));
             }
  
             return angles;
@@ -218,7 +225,7 @@ public class JointMovment : MonoBehaviour
         {
             case 0:
 
-                    angle=Joints[i].localEulerAngles.y;
+                    angle=-Joints[i].localEulerAngles.y;
                   
             break;
                   case 1:
@@ -229,11 +236,12 @@ public class JointMovment : MonoBehaviour
                   case 2:
                            
                              angle=Joints[i].localEulerAngles.x;
-                           
+                            // Debug.Log(angle);                    
             break;
                   case 3:
                         
-                         angle=Joints[i].localEulerAngles.z;
+                         angle=Joints[i].localEulerAngles.y;
+                        //  Debug.Log(Joints[i].localEulerAngles);
             break;
                   case 4:
                               

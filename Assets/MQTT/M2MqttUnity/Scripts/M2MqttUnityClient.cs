@@ -113,6 +113,7 @@ namespace M2MqttUnity
         protected virtual void OnConnecting()
         {
             Debug.LogFormat("Connecting to broker on {0}:{1}...\n", brokerAddress, brokerPort.ToString());
+             FindObjectOfType<MessagePanelManager>().ShowMessage("Connecting to broker on "+brokerAddress+":"+brokerPort.ToString(),Color.blue,20,14);
         }
 
         /// <summary>
@@ -136,6 +137,7 @@ namespace M2MqttUnity
         protected virtual void OnConnectionFailed(string errorMessage)
         {
             Debug.LogWarning("Connection failed.");
+            FindObjectOfType<MessagePanelManager>().ShowMessage("Failed connect to "+brokerAddress+":"+brokerPort.ToString(),Color.red,6,14);
             if (ConnectionFailed != null)
             {
                 ConnectionFailed();
@@ -300,6 +302,7 @@ namespace M2MqttUnity
                 {
                     client = null;
                     Debug.LogErrorFormat("CONNECTION FAILED! {0}", e.ToString());
+                    FindObjectOfType<MessagePanelManager>().ShowMessage("Failed connect to "+brokerAddress+":"+brokerPort.ToString(),Color.red,6,14);
                     OnConnectionFailed(e.Message);
                     yield break;
                 }
@@ -339,6 +342,7 @@ namespace M2MqttUnity
             else
             {
                 OnConnectionFailed("CONNECTION FAILED!");
+                FindObjectOfType<MessagePanelManager>().ShowMessage("Failed connect to "+brokerAddress+":"+brokerPort.ToString(),Color.red,6,14);
             }
         }
 

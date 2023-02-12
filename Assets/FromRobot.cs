@@ -39,7 +39,15 @@ Vector3 melfaPosInxyz;
 
      float distx = transform.position.x - melfaPosInxyz.x;
 float distz = transform.position.z - melfaPosInxyz.z;
+        // Debug.Log(distx +"     "+distz);
+        dist.text="Distance From Robot(cm) is X:"+_2cm(distx).ToString()+" and Y:"+_2cm(distz).ToString();
+    }
 
-        dist.text="Distance From Robot is X:"+Mathf.Abs(distx).ToString()+" and Y:"+Mathf.Abs(distz).ToString();
+    public float _2cm(float dist)
+    {
+        float tmp_abs=Mathf.Abs(dist);
+        float tmpceil=Mathf.Floor(tmp_abs);
+        float f= (Mathf.Ceil((tmp_abs-tmpceil)*100)/100)+tmpceil;
+        return f*10;
     }
 }

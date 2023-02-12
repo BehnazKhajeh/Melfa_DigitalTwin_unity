@@ -29,17 +29,17 @@ public class TeachPointManager : MonoBehaviour
         jointAngle=FindObjectOfType<JointMovment>().Get_All_Joint_Angles();
         
         JointText.text=
-        "J1="+ FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[0]* 100.0f)* 0.01f)+
-        " J2="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[1]* 100.0f)* 0.01f)+
-        " J3="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[2]* 100.0f)* 0.01f)+
-        " J4="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[3]* 100.0f)* 0.01f)+
-        " J5="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[4]* 100.0f)* 0.01f)+
-        " J6="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(Mathf.Round(jointAngle[5]* 100.0f)* 0.01f);
+        "J1="+ FindObjectOfType<JointMovment>().NormalizedToNegativDegree(0,Mathf.Round(jointAngle[0]* 100.0f)* 0.01f)+
+        " J2="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(1,Mathf.Round(jointAngle[1]* 100.0f)* 0.01f)+
+        " J3="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(2,Mathf.Round(jointAngle[2]* 100.0f)* 0.01f)+
+        " J4="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(3,Mathf.Round(jointAngle[3]* 100.0f)* 0.01f)+
+        " J5="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(4,Mathf.Round(jointAngle[4]* 100.0f)* 0.01f)+
+        " J6="+FindObjectOfType<JointMovment>().NormalizedToNegativDegree(5,Mathf.Round(jointAngle[5]* 100.0f)* 0.01f);
                XYZPoint=FindObjectOfType<GetTeachPoint>().GetPoint();
                 XYZText.text=
-        "X="+ XYZPoint[0]+
-        " Y"+XYZPoint[1]+
-        " Z="+XYZPoint[2]+
+        "X="+ XYZPoint[0]*100+
+        " Y="+XYZPoint[1]*100+
+        " Z="+XYZPoint[2]*100+
         " A="+
         " B="+
         " C=";
